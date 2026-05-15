@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ozg JSNES - Fullscreen</title>
+    <style>
+        /* 全局样式初始化与深色背景 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a; /* 深色背景，减少眼部疲劳 */
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* 防止页面出现滚动条 */
+        }
+
+        /* 模拟器容器：占满全屏减去底部说明栏的高度 */
+        #emulator {
+            width: 100vw;
+            height: calc(100vh - 180px); /* 底部预留180px给按键说明 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        /* 强制 Canvas 画布保持比例并填满模拟器容器 */
+        #emulator canvas {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 保持画面比例，避免拉伸变形 */
+            image-rendering: pixelated; /* 像素游戏必备：保持像素点清晰，不模糊 */
+        }
+
+        /* 底部按键说明区域 */
+        .controls-info {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 180px; /* 固定高度 */
+            background-color: #2d2d2d;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            box-sizing: border-box;
+            overflow-y: auto; /* 内容过多时允许内部滚动 */
+            border-top: 2px solid #444;
+        }
+
+        .controls-info h3 {
+            margin: 5px 0 10px 0;
+            color: #4CAF50; /* 绿色标题 */
+            font-size: 18px;
+        }
+
+        /* 表格样式优化 */
+        table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #383838;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 游戏显示区域 -->
+    <div id="emulator"></div>
+    
+    <!-- 底部固定按键说明 -->
+    <div class="controls-info">
+        <h3>🎮 控制按键说明</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>功能</th>
+                    <th>玩家 1 (Player 1)</th>
+                    <th>玩家 2 (Player 2)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>方向 (上下左右)</td>
+                    <td>↑ ↓ ← →</td>
+                    <td>Num-8 / 2 / 4 / 6</td>
+                </tr>
+                <tr>
+                    <td>A 键</td>
+                    <td>X</td>
+                    <td>Num-7</td>
+                </tr>
+                <tr>
+                    <td>B 键</td>
+                    <td>Z</td>
+                    <td>Num-9</td>
+                </tr>
+                <tr>
+                    <td>开始 (Start)</td>
+                    <td>Enter</td>
+                    <td>Num-1</td>
+                </tr>
+                <tr>
+                    <td>选择 (Select)</td>
+                    <td>Ctrl</td>
+                    <td>Num-3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- 引入 JSNES 核心逻辑 -->
+    <script src="js/lib/require.js" data-main="js/index.js"></script>
+</body>
+</html>
